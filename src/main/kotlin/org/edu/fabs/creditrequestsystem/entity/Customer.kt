@@ -4,7 +4,6 @@ import jakarta.persistence.*
 import org.springframework.data.annotation.Id
 
 @Entity
-@Table(name = "Client")
 data class Customer(
     @Column(nullable = false) var firstName: String = "",
     @Column(nullable = false) var lastName: String = "",

@@ -3,11 +3,12 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:credit_application_system
+    url: jdbc:h2:mem:credit-application-system
     username: sa
   jpa:
-    hibernate:
-      ddl-auto: create-drop
+    show-sql: true
+  flyway:
+    locations: classpath:db/migration
   h2:
     console:
       enabled: true
