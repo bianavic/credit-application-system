@@ -1,7 +1,6 @@
 package org.edu.fabs.creditrequestsystem.entity
 
 import jakarta.persistence.*
-import org.springframework.data.annotation.Id
 import java.math.BigDecimal
 
 @Entity
@@ -17,5 +16,5 @@ data class Customer(
     @Column(nullable = false) @OneToMany(fetch = FetchType.LAZY,
         cascade = arrayOf(CascadeType.ALL, CascadeType.PERSIST),
         mappedBy = "customer") var credits: List<Credit> = mutableListOf(),
-    @jakarta.persistence.Id @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null
 )
