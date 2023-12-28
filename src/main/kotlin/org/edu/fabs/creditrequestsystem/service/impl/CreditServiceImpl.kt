@@ -26,9 +26,6 @@ class CreditServiceImpl(
         return if (credit.customer?.id == customerId) credit else throw RuntimeException("Contact admin")
     }
 
-    override fun findAllByCustomer(customerId: Long): List<Credit> {
-
-        TODO("Not yet implemented")
-    }
+    override fun findAllByCustomer(customerId: Long): List<Credit> = this.creditRepository.findAllByCustomerId(customerId)
 
 }
