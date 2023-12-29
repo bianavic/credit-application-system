@@ -1,6 +1,7 @@
 package org.edu.fabs.creditrequestsystem.service.impl
 
 import org.edu.fabs.creditrequestsystem.entity.Credit
+import org.edu.fabs.creditrequestsystem.exception.BusinessException
 import org.edu.fabs.creditrequestsystem.repository.CreditRepository
 import org.edu.fabs.creditrequestsystem.service.CreditService
 import org.edu.fabs.creditrequestsystem.service.CustomerService
@@ -11,7 +12,7 @@ import java.util.*
 class CreditServiceImpl(
     private val creditRepository: CreditRepository,
     private val customerService: CustomerService
-): CreditService {
+) : CreditService {
 
     override fun save(credit: Credit): Credit {
         credit.apply {
@@ -22,10 +23,11 @@ class CreditServiceImpl(
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
         val credit = this.creditRepository.findByCreditCode(creditCode)
-            ?: throw RuntimeException("Creditcode $creditCode not found")
-        return if (credit.customer?.id == customerId) credit else throw RuntimeException("Contact admin")
+            ?: throw BusinessException("Creditcode $creditCode not found")
+        return if (credit.customer?.id == customerId) credit else throw BusinessException("Id $customerId not found")
     }
 
-    override fun findAllByCustomer(customerId: Long): List<Credit> = this.creditRepository.findAllByCustomerId(customerId)
+    override fun findAllByCustomer(customerId: Long): List<Credit> =
+        this.creditRepository.findAllByCustomerId(customerId)
 
 }
