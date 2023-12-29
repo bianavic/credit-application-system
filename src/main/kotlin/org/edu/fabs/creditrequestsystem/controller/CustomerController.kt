@@ -1,5 +1,6 @@
 package org.edu.fabs.creditrequestsystem.controller
 
+import jakarta.validation.Valid
 import org.edu.fabs.creditrequestsystem.dto.request.CustomerDTO
 import org.edu.fabs.creditrequestsystem.dto.request.CustomerUpdateDTO
 import org.edu.fabs.creditrequestsystem.dto.response.CustomerView
@@ -16,7 +17,7 @@ class CustomerController(
 ) {
 
     @PostMapping
-    fun saveCustomer(@RequestBody customerDTO: CustomerDTO): ResponseEntity<String> {
+    fun saveCustomer(@RequestBody @Valid customerDTO: CustomerDTO): ResponseEntity<String> {
         val savedCustomer = this.customerService.save(customerDTO.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED).body("Customer ${savedCustomer.email} saved!")
     }
@@ -33,7 +34,7 @@ class CustomerController(
     @PatchMapping
     fun updateCustomer(
         @RequestParam(value = "customerId") id: Long,
-        @RequestBody customerUpdateDTO: CustomerUpdateDTO
+        @RequestBody @Valid customerUpdateDTO: CustomerUpdateDTO
     ): ResponseEntity<CustomerView> {
         val customer: Customer = this.customerService.findById(id)
         val customerToUpdate: Customer = customerUpdateDTO.toEntity(customer)

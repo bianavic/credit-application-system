@@ -1,5 +1,6 @@
 package org.edu.fabs.creditrequestsystem.controller
 
+import jakarta.validation.Valid
 import org.edu.fabs.creditrequestsystem.dto.request.CreditDTO
 import org.edu.fabs.creditrequestsystem.dto.response.CreditView
 import org.edu.fabs.creditrequestsystem.dto.response.CreditViewList
@@ -18,9 +19,10 @@ class CreditController(
 ) {
 
     @PostMapping
-    fun saveCredit(@RequestBody creditDTO: CreditDTO): ResponseEntity<String> {
+    fun saveCredit(@RequestBody @Valid creditDTO: CreditDTO): ResponseEntity<String> {
         val credit = this.creditService.save(creditDTO.toEntity())
-        return ResponseEntity.status(HttpStatus.CREATED).body("Credit ${credit.creditCode} - Customer ${credit.customer?.firstName} saved")
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body("Credit ${credit.creditCode} - Customer ${credit.customer?.firstName} saved")
     }
 
     @GetMapping("/all")
