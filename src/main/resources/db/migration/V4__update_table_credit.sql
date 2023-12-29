@@ -1,0 +1,1 @@
+ALTER TABLE credit ALTER COLUMN status VARCHAR(50)
