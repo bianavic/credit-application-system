@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "9d5d60f0-93ee-465d-82ac-3e8dbe604ca8",
+		"name": "dio-koltin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "7404276",
+		"_collection_link": "https://bold-equinox-863915.postman.co/workspace/ac678db0-d2ef-45ef-aec6-0322200a791c/collection/7404276-9d5d60f0-93ee-465d-82ac-3e8dbe604ca8?action=share&source=collection_link&creator=7404276"
+	},
+	"item": [
+		{
+			"name": "credit",
+			"item": [
+				{
+					"name": "Add credit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"creditValue\": 100.0,\n    \"dayFirstInstallment\": \"2025-02-01\",\n    \"numberOfInstallments\": 48,\n    \"customerId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8001/api/credits"
+					},
+					"response": []
+				},
+				{
+					"name": "By CustomerID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/api/credits/all?customerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"credits",
+								"all"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By CreditCode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/api/credits/cedc94f1-fd90-4c2e-8140-def634f8d42e?customerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"credits",
+								"cedc94f1-fd90-4c2e-8140-def634f8d42e"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "Add customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Test 1\",\n    \"lastName\": \"Test 1\",\n    \"cpf\": \"34146195047\",\n    \"email\": \"test1@email.com\",\n    \"password\": \"1111\",\n    \"income\": 100,\n    \"zipCode\": \"111\",\n    \"street\": \"street 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8001/api/customers"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Test 2\",\n    \"lastName\": \"Test 1\",\n    \"income\": 111.00,\n    \"zipCode\": \"111\",\n    \"street\": \"street 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/customers?customerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8001/api/customers/1"
+					},
+					"response": []
+				},
+				{
+					"name": "By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8001/api/customers/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
