@@ -12,15 +12,17 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.test.context.ActiveProfiles
-import java.util.UUID
+import java.util.*
 
 @ActiveProfiles("test")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class CreditRepositoryTest {
 
-    @Autowired lateinit var creditRepository: CreditRepository
-    @Autowired lateinit var testEntityManager: TestEntityManager
+    @Autowired
+    lateinit var creditRepository: CreditRepository
+    @Autowired
+    lateinit var testEntityManager: TestEntityManager
 
     private lateinit var customer: Customer
     private lateinit var credit1: Credit
@@ -49,6 +51,17 @@ class CreditRepositoryTest {
         Assertions.assertThat(fakeCredit2).isNotNull
         Assertions.assertThat(fakeCredit1).isSameAs(credit1)
         Assertions.assertThat(fakeCredit2).isSameAs(credit2)
+    }
+
+    @Test
+    fun `should find all credits by customer id`() {
+        val customerId: Long = 1L
+
+        val creditList: List<Credit> = creditRepository.findAllByCustomerId(customerId)
+
+        Assertions.assertThat(creditList).isNotNull
+        Assertions.assertThat(creditList.size).isEqualTo(2)
+        Assertions.assertThat(creditList).contains(credit1, credit2)
     }
 
 }
