@@ -234,13 +234,13 @@ class CustomerControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("$.income").value("1000.0"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.zipCode").value("2222"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.street").value("Street Updated"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(6))
             .andDo(MockMvcResultHandlers.print())
     }
 
     @Test
     fun `should not update a customer with invalid id and return 400 status`() {
-        val invalidId: Long = Random().nextLong()
+        val invalidId: Long = 10L
         val customerUpdateDTO: CustomerUpdateDTO = CustomerUpdateDTOStub.builderCustomerUpdateDTO()
         val valueAsString: String = objectMapper.writeValueAsString(customerUpdateDTO)
 
