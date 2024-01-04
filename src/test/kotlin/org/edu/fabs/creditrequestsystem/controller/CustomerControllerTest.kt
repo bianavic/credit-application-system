@@ -1,19 +1,20 @@
 package org.edu.fabs.creditrequestsystem.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import jakarta.transaction.Transactional
 import org.edu.fabs.creditrequestsystem.dto.request.CustomerDTO
 import org.edu.fabs.creditrequestsystem.dto.request.CustomerUpdateDTO
 import org.edu.fabs.creditrequestsystem.entity.Customer
 import org.edu.fabs.creditrequestsystem.repository.CustomerRepository
 import org.edu.fabs.creditrequestsystem.stub.CustomerDTOStub
 import org.edu.fabs.creditrequestsystem.stub.CustomerUpdateDTOStub
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.servlet.MockMvc
@@ -65,7 +66,7 @@ class CustomerControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("$.income").value("1000.0"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.zipCode").value("2222"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.street").value("Street 2"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
             .andDo(MockMvcResultHandlers.print())
     }
 
@@ -114,12 +115,6 @@ class CustomerControllerTest {
             .andDo(MockMvcResultHandlers.print())
     }
 
-    /*
-    expected id = 2 (instead of id = 1):
-    This behaviour is due to the way @GeneratedValue strategy works.
-    Once a sequence has been used, it increments from there. So if you delete all records and insert a new one,
-    the ID may start from 2, depending on the sequence settings and whether there were any entities saved previously.
-     */
     @Test
     fun `should find a customer by id and return 200 status`() {
         val customer: Customer = customerRepository.save(CustomerDTOStub.builderCustomerDTO().toEntity())
@@ -136,7 +131,7 @@ class CustomerControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("$.income").value("1000.0"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.zipCode").value("2222"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.street").value("Street 2"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
             .andDo(MockMvcResultHandlers.print())
     }
 
@@ -234,7 +229,7 @@ class CustomerControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("$.income").value("1000.0"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.zipCode").value("2222"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.street").value("Street Updated"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(6))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
             .andDo(MockMvcResultHandlers.print())
     }
 
