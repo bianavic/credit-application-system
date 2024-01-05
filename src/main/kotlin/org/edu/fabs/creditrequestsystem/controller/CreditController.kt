@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
 import org.edu.fabs.creditrequestsystem.dto.request.CreditDTO
+import org.edu.fabs.creditrequestsystem.dto.response.CreditSaveView
 import org.edu.fabs.creditrequestsystem.dto.response.CreditView
 import org.edu.fabs.creditrequestsystem.dto.response.CreditViewList
 import org.edu.fabs.creditrequestsystem.entity.Credit
@@ -25,14 +26,16 @@ class CreditController(
     @ApiResponses(
         value = [
             ApiResponse(responseCode = "201", description = "Successful Operation"),
-            ApiResponse(responseCode = "400", description = "Bad Request if ID is not found")
+            ApiResponse(responseCode = "400", description = "Bad Request if ID is not found"),
+            ApiResponse(responseCode = "400", description = "Date must be in future"),
+            ApiResponse(responseCode = "400", description = "Date can not be more than 3 months ahead")
         ]
     )
     @PostMapping
-    fun saveCredit(@RequestBody @Valid creditDTO: CreditDTO): ResponseEntity<String> {
+    fun saveCredit(@RequestBody @Valid creditDTO: CreditDTO): ResponseEntity<CreditSaveView> {
         val credit = this.creditService.save(creditDTO.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body("Credit ${credit.creditCode} - Customer ${credit.customer?.firstName} saved")
+            .body(CreditSaveView(credit))
     }
 
     @Operation(summary = "Find all Credits from a Customer By its ID", description = "Returns 200 if successful")

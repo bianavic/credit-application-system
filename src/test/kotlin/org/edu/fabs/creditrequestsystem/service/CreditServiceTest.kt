@@ -65,7 +65,7 @@ class CreditServiceTest {
 
         Assertions.assertThatThrownBy { creditServiceImpl.save(credit) }
             .isInstanceOf(BusinessException::class.java)
-            .hasMessage("Invalid Date")
+            .hasMessage("Date can not be more than 3 months ahead")
 
         verify(exactly = 0) { creditRepository.save(any()) }
     }

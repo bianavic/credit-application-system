@@ -39,7 +39,7 @@ class CreditServiceImpl(
 
     private fun validateDayFirstInstallment(dayFirstInstallment: LocalDate): Boolean {
         return if (dayFirstInstallment.isBefore(LocalDate.now().plusMonths(3))) true
-        else throw BusinessException("Invalid Date")
+        else throw BusinessException("Date can not be more than 3 months ahead")
     }
 
 }
