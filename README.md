@@ -109,7 +109,7 @@
 <hr>
 
 ### Code Coverage Report
-![coverage.png](..%2F..%2F..%2F..%2F..%2FPictures%2Fcoverage.png)
+![coverage.png](img/coverage.png)
 
 <hr>
 <h3>Links Úteis</h3>
