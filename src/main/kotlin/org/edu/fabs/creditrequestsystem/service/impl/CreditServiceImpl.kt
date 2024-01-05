@@ -29,12 +29,17 @@ class CreditServiceImpl(
         } ?: throw BusinessException("Credit code $creditCode or customer ID $customerId not found")
     }
 
-    override fun findAllByCustomer(customerId: Long): List<Credit> =
-        this.creditRepository.findAllByCustomerId(customerId)
+    override fun findAllByCustomer(customerId: Long): List<Credit> {
+        val credits = this.creditRepository.findAllByCustomerId(customerId)
+        if (credits.isEmpty()) {
+            throw BusinessException("Customer ID $customerId not found")
+        }
+        return credits
+    }
 
     private fun validateDayFirstInstallment(dayFirstInstallment: LocalDate): Boolean {
         return if (dayFirstInstallment.isBefore(LocalDate.now().plusMonths(3))) true
-        else throw BusinessException("Invalid Date")
+        else throw BusinessException("Date can not be more than 3 months ahead")
     }
 
 }

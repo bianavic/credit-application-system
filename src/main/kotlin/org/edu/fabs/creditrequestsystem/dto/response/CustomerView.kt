@@ -13,7 +13,8 @@ data class CustomerView(
     val email: String,
     val income: BigDecimal = BigDecimal.ZERO,
     val zipCode: String,
-    val street: String
+    val street: String,
+    val id: Long?
 ) {
     // montar customerview com as infos do customer
     constructor(customer: Customer): this (
@@ -23,6 +24,7 @@ data class CustomerView(
         email = customer.email,
         income = customer.income,
         zipCode = customer.address.zipCode,
-        street = customer.address.street
+        street = customer.address.street,
+        id = customer.id
     )
 }
