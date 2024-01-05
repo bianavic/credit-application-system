@@ -1,20 +1,19 @@
 package org.edu.fabs.creditrequestsystem.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import jakarta.transaction.Transactional
 import org.edu.fabs.creditrequestsystem.dto.request.CustomerDTO
 import org.edu.fabs.creditrequestsystem.dto.request.CustomerUpdateDTO
 import org.edu.fabs.creditrequestsystem.entity.Customer
 import org.edu.fabs.creditrequestsystem.repository.CustomerRepository
 import org.edu.fabs.creditrequestsystem.stub.CustomerDTOStub
 import org.edu.fabs.creditrequestsystem.stub.CustomerUpdateDTOStub
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.servlet.MockMvc
